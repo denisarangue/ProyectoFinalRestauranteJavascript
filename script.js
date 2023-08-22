@@ -55,13 +55,18 @@ const finishOrder = () => {
 
 // Permite pagar el pedido y entrega vuelto si es necesario
 const payOrder = (amountDelivered) => {
-    if (amountDelivered < user.debt) {
-        return `No te alcanza para pagar tu pedido`;
-    } else if (amountDelivered === user.debt) {
-        user.debt = 0;
-        return `Tu pedido ha sido pagado`;
+    if (typeof amountDelivered === "number") {
+        if (amountDelivered < user.debt) {
+            return `No te alcanza para pagar tu pedido`;
+        } else if (amountDelivered === user.debt) {
+            user.debt = 0;
+            return `Tu pedido ha sido pagado`;
+        } else {
+            user.debt = 0;
+            return `Tu pedido ha sido pagado y tu vuelto es de ${amountDelivered - user.debt}`;
+            return "Deuda pagada";
+        }
     } else {
-        user.debt = 0;
-        return `Tu pedido ha sido pagado y tu vuelto es de ${amountDelivered - user.debt}`;
+        return "Dato ingresado de forma errónea"
     }
 }
